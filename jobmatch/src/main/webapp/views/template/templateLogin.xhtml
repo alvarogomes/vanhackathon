@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<h:head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <link href="../../css/animate.css" rel="stylesheet" />
+    <link href="../../css/style.css" rel="stylesheet" />
+    
+    <script src="../../js/jquery-2.1.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/plugins/metisMenu/jquery.js"></script>
+    <script src="../../js/plugins/slimscroll/jquery.slimscroll.js"></script>
+    
+    <script type="text/javascript" src="../..//js/application.js"></script>
+	<script type="text/javascript" src="../..//js/jquery.maskedinput.js"></script>
+	<script type="text/javascript" src="../../js/jquery.mask.js"></script>
+	<script type="text/javascript" src="../../js/jquery.alphanumeric.js"></script>
+	<script type="text/javascript" src="../../js/jquery.price-format.js"></script>
+	
+	<title>VANHACK - JOBMATCH</title>
+</h:head>
+
+<h:body styleClass="my-image-bg1"> 
+	
+	<style type="text/css">
+   		.cor_texto{
+   			color: #FFFFFF;
+   		}
+   	</style>
+   	
+	<div class="loginColumns animated fadeInDown">
+        <div class="row">
+			<ui:insert name="conteudo"></ui:insert>
+		</div>
+		<hr />
+        <div class="row">
+            <div class="col-md-6 cor_texto">
+                VanHack - Rights Reserved
+            </div>
+            <div class="col-md-6 text-right cor_texto">
+               <small>© 2017</small>
+            </div>
+        </div>
+	</div>
+	
+	<a4j:status id="loading" onstop="$.reRender();" />
+				
+</h:body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+	
+	<ui:composition template="../template/templateLogin.xhtml">
+	   	<ui:define name="conteudo">
+	   	
+			<f:event listener="#{loginController.iniciar}"  type="preRenderView" />
+	   		
+	   		<!--  Codigo da tela de login -->
+			
+
+			<div class="col-md-6">
+			   <div class="ibox-content">
+			   
+			    <h2 class="font-bold"><img src="../../img/vanhack.png" /> - Jobmatch</h2>
+                <br/>
+                <h3 class="">Artificial Intelligence System to provide the best match between Professionals and Job Offers.</h3>
+
+                <p><br/> </p>
+				
+	                <p>
+	                    Vanhack - Jobmatch was created to make the selection with more accurate of the best professionals for a job, the same is done by crossing information using AI.
+	                </p>
+					
+					<p></p>				
+					
+	                
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <h:form styleClass="m-t" role="form">
+                        
+                        <h:messages id="msg" showSummary="true" showDetail="true"/>
+                        <div class="form-group">
+                        	<h:outputText value="E-mail:" />
+                        	<h:inputText styleClass="focus email form-control" placeholder="Username" type="text placeholder" 
+                        		value="#{loginController.login.login}"/>
+                        </div>
+                        <div class="form-group">
+                        	<h:outputText value="Password:" />
+                        	<h:inputSecret styleClass="form-control" placeholder="Password" type="password placeholder" 
+                        		value="#{loginController.login.password}" />
+                        </div>
+                        
+						<a4j:commandLink styleClass="btn btn-primary block full-width m-b"
+							action="#{loginController.executeLogin}" render="msg">
+							Login
+						</a4j:commandLink>
+						<br/><br/>
+						
+                        <a href="#">
+                        <a4j:commandLink  render="msg">
+							<small>Forgot your password?</small>
+						</a4j:commandLink>
+                            
+                        </a>
+						<br/><br/>
+						
+                    </h:form>
+                    <p class="m-t">
+						
+                    </p>
+                </div>
+            </div>
+            
+            
+	   		<!--  FIM - Codigo da tela de login -->
+	   	</ui:define>
+	</ui:composition>
+	
+</html>
+	

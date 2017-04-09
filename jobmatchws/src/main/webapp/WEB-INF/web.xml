@@ -1,0 +1,41 @@
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+         
+  <display-name>jobmatchws</display-name>
+  	
+  	
+	<context-param>
+	    <param-name>resteasy.servlet.mapping.prefix</param-name>
+	    <param-value>/service</param-value>
+	</context-param>
+	
+	<context-param>
+	        <param-name>resteasy.injector.factory</param-name>
+	        <param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>
+	    </context-param>
+
+	 <context-param>
+		<param-name>javax.ws.rs.Application</param-name>
+		<param-value>com.vanhack.jobmatch.useful.BaseApplication</param-value>
+	</context-param>
+	
+  <listener>
+		<listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>Resteasy</servlet-name>
+		<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Resteasy</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+		    
+	<listener>
+		<listener-class>com.vanhack.jobmatch.useful.QuartzListener</listener-class>
+	</listener>
+	
+</web-app>

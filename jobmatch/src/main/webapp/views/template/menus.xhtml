@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+     <!--  MENU -->
+     <h:form>
+      <a4j:region>
+   			<a4j:status id="none" onstart="" onstop="" />
+
+      <li>
+          <a4j:commandLink><i class="fa fa-paste"></i> <span class="nav-label">Registers</span> <span class="fa arrow"></span></a4j:commandLink>
+          <ul class="nav nav-second-level collapse" style="height: 0px;">
+              <li><a4j:commandLink action="#{loginController.menu}">Professionals
+              			<f:param name="title" value="Registers of professionals" />
+              			<f:param name="page" value="../professionals/professionalsFilter.jsf" />
+              	  </a4j:commandLink></li>
+              <li><a4j:commandLink action="#{loginController.menu}">Jobs
+              			<f:param name="title" value="Registers of jobs" />
+              			<f:param name="page" value="../jobs/jobsFilter.jsf" />
+              	  </a4j:commandLink></li>
+          </ul>
+      </li>
+      <li>
+          <a4j:commandLink><i class="fa fa-search"></i> <span class="nav-label">Match</span> <span class="fa arrow"></span></a4j:commandLink>
+          <ul class="nav nav-second-level collapse" style="height: 0px;">
+              <li><a4j:commandLink action="#{loginController.menu}">Jobmatch Manager
+              			<f:param name="title" value="Jobmatch Manager" />
+              			<f:param name="page" value="../jobmatch/jobmatchFilter.jsf" />
+              	  </a4j:commandLink></li>
+              
+          </ul>
+      </li>
+      
+      </a4j:region>
+     </h:form>
+     <!--  FIM MENU -->
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+	
+	<ui:composition template="../template/templateMain.xhtml">
+	   	<ui:define name="conteudo">
+	   	
+	   	<f:event listener="#{jobController.iniciar}"  type="preRenderView" />
+	   	
+	   	<h:form id="form">	   		
+	   	  <a4j:outputPanel id="pnlPrincipal">
+	   	  	
+	   		<!--  Codigo da tela -->
+			<div class="row">
+				
+				<div class="col-lg-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-content">
+						  <div class="content clearfix">
+							  	<div class="row">
+									<div class="fieldset">
+											
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label>Job</label> 
+													<h:inputText id="nome" value="#{jobController.job.description }" styleClass="form-control" />
+												</div>
+											</div>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="pull-right">
+											<a4j:commandLink action="#{jobController.limpar}" 
+															 render="pnlPrincipal" 
+															 styleClass="btn btn-white">
+												<i class="fa fa-trash"/> Clean
+											</a4j:commandLink>
+											
+											<a4j:commandLink action="#{jobController.consultar}" styleClass="btn btn-white"
+															 render="pnlConsulta" >
+												<i class="fa fa-search"/> Search
+											</a4j:commandLink>
+										</div>
+									</div>
+							   </div>
+							   
+							   
+							   <!--  Grid -->
+							   <div class="row">
+							   		<a4j:outputPanel id="pnlConsulta">
+								   		<h:messages id="messages" showSummary="true" showDetail="true"/>
+								   		<br/>
+								   		<rich:dataTable id="dtPessoas"
+											value="#{jobController.listJobs}" 
+											rows="10"
+											var="lista"
+											styleClass="table table-bordered">
+										
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Select" />
+												</f:facet>
+												<h:selectBooleanCheckbox value="#{jobController.hashAnalysis[lista.code]}" 
+												rendered="#{lista.status =='Pending' or lista.status =='No professional found'}" >
+													<a4j:ajax event="change" listener="#{jobController.noAction}" />
+												</h:selectBooleanCheckbox>
+											</rich:column>
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Company" />
+												</f:facet>
+												<h:outputText value="#{lista.company}" />
+											</rich:column>	
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Type" />
+												</f:facet>
+												<h:outputText value="#{lista.jobtype}" />
+											</rich:column>
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Posted date" />
+												</f:facet>
+												<h:outputText value="#{lista.date}" />
+											</rich:column>	
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Status" />
+												</f:facet>
+												<h:outputText value="#{lista.status}" />
+											</rich:column>
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="" />
+												</f:facet>
+												
+												<a4j:commandLink action="#{jobController.noAction}" styleClass="btn btn-white"
+															 render="OpConfirmacaoExclusaoModal" 
+															 oncomplete="$('#confirmacaoExclusaoModal').modal('show');">
+															 
+													<i class="fa fa-edit" /> Detail
+													<f:setPropertyActionListener value="#{lista}" target="#{jobController.jobSelected}" />
+												</a4j:commandLink>
+												
+												
+												<a4j:commandLink action="#{jobController.detail}" styleClass="btn btn-primary"
+															 render="OpConfirmacaoExclusaoModal" 
+															 rendered="#{lista.status =='Done'}">
+													<i class="fa fa-check" /> See Jobmatch
+													<f:setPropertyActionListener value="#{lista}" target="#{jobController.jobSelected}" />
+												</a4j:commandLink>
+											</rich:column>	
+											
+										</rich:dataTable>
+										
+										<div class="pull-right">
+											<rich:dataScroller align="right" for="dtPessoas" maxPages="20" id="scroller" reRender="dtPessoas" eventsQueue="1" />
+										</div>
+									</a4j:outputPanel>
+							   </div>
+							   <br/>
+							   <div class="row">
+							   		<div class="pull-right">
+											<a4j:commandLink action="#{jobController.detectCandidates}" styleClass="btn btn-success"
+															 render="pnlConsulta" >
+															 
+													<i class="fa fa-edit" /> Execute Jobmatch
+												</a4j:commandLink>
+									</div>
+							   </div>
+							   <!--  Fim Grid -->
+							   
+							   <!--  Modal -->
+							   	<a4j:outputPanel id="OpConfirmacaoExclusaoModal">
+							   		<div id="confirmacaoExclusaoModal" class="modal fade" tabindex="-1" role="dialog">	
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">	
+									          	<div class="modal-body" style="text-align: left;">
+												  	<div class="row">
+														<div class="col-lg-5">
+															<div class="form-group">
+																<label>Company</label> 
+																<h:inputText disabled="true"  value="#{jobController.jobSelected.company}" styleClass="form-control" />
+															</div>
+														</div>
+														<div class="col-lg-6">
+															<div class="form-group">
+																<label>Type</label> 
+																<h:inputText disabled="true"  value="#{jobController.jobSelected.jobtype}" styleClass="form-control" />
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="form-group">
+																<label>Description</label> 
+																<h:inputTextarea disabled="true" rows="5" value="#{jobController.jobSelected.description}" styleClass="form-control" />
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="form-group">
+																<label>Responsabilities</label> 
+																<h:inputTextarea disabled="true" rows="5" value="#{jobController.jobSelected.responsabilities}" styleClass="form-control" />
+															</div>
+														</div>
+													</div>
+													
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="form-group">
+																<label>Qualifications</label> 
+																<h:inputTextarea disabled="true" rows="5" value="#{jobController.jobSelected.qualifications}" styleClass="form-control" />
+															</div>
+														</div>
+													</div>
+													
+												</div>
+												
+												<div class="modal-footer">
+														
+														
+										          		<a4j:commandLink onclick="$('#confirmacaoExclusaoModal').modal('hide');" styleClass="btn btn-white">
+															<i class="fa fa-remove" /> Close
+														</a4j:commandLink>
+												</div>
+											</div>
+										</div>
+									</div>
+								</a4j:outputPanel>
+							   <!--  Fim Modal -->
+							   
+						   </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		
+		  </a4j:outputPanel>	
+		</h:form>	
+		
+	   		<!--  FIM - Codigo da tela -->
+	   	</ui:define>
+	</ui:composition>
+	
+</html>
+	

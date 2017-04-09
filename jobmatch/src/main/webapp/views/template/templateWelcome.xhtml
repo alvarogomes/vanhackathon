@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<h:head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <link href="../../css/animate.css" rel="stylesheet" />
+    <link href="../../css/style.css" rel="stylesheet" />
+    
+    
+    <!-- Mainly scripts -->
+    <script src="../../js/jquery-2.1.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/plugins/metisMenu/jquery.js"></script>
+    <script src="../../js/plugins/slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../../js/inspinia.js"></script>
+    <script src="../../js/plugins/pace/pace.js"></script>
+    
+	<title>VANHACK - JOBMATCH</title>
+
+</h:head>
+
+<h:body> 
+
+    <div id="wrapper">
+	<h:form>
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li class="nav-header">
+                	
+	                    <div class="dropdown profile-element"> 
+	                    		<span>
+	                    				<!--  Imagem perfil... -->
+	                            		
+	                            		<img alt="image" class="img-circle" src="../../img/vanhack.png" />
+	                            		<!--  Fim - Imagem perfil... -->
+	                             </span>
+	                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+	                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">#{loginController.login.name}</strong>
+	                             </span> <span class="text-muted text-xs block">Administrator <b class="caret"></b></span> </span> </a>
+	                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+	                            <li><h:commandLink action="#{loginController.executeLogoff}">Logoff</h:commandLink></li>
+	                        </ul>
+	                    </div>
+                    
+                    <div class="logo-element">
+                        VJM
+                    </div>
+                </li>
+                <!--  MENU -->
+                
+	                <ui:include src="menus.xhtml"></ui:include>
+                
+                <!--  FIM MENU -->
+			</ul>
+        </div>
+    </nav>
+	</h:form>
+	
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom">
+        <h:form>
+        <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+        	<a4j:region>
+   				<a4j:status id="none" onstart="" onstop="" />
+            	<a4j:commandLink styleClass="navbar-minimalize minimalize-styl-2 btn btn-primary"> <i class="fa fa-bars"></i></a4j:commandLink>
+            </a4j:region>
+        </div>
+        
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <span class="m-r-sm text-muted welcome-message">Welcome to Vanhack-Jobmatch</span>
+                </li>
+                <!--  Mensagens -->
+                <!-- 
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-envelope"></i>  <span class="label label-warning">16</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <a href="profile.html" class="pull-left">
+                                    <img alt="image" class="img-circle" src="img\a7.jpg" />
+                                </a>
+                                <div class="media-body">
+                                    <small class="pull-right">46h ago</small>
+                                    <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br />
+                                    <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
+                                </div>
+                            </div>
+                        </li>
+                       
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="mailbox.html">
+                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                 -->
+                <!--  FIM Mensagens -->
+                <!--  Alertas -->
+                <!-- 
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+				 -->
+
+				<!--  Fim Alerta -->
+                <li>
+                    <h:commandLink action="#{loginController.executeLogoff}">
+                        <i class="fa fa-sign-out"></i> Logoff
+                    </h:commandLink>
+                </li>
+            </ul>
+
+        
+        </nav>
+        </h:form>
+        </div>
+        	
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>Welcome #{loginController.login.name}...</h2>
+                </div>
+                
+            </div>
+
+            <div class="wrapper wrapper-content">
+                
+                <!--  CONTEUDO -->
+                <ui:insert name="conteudo"></ui:insert>
+                <!--  FIM CONTEUDO -->
+                
+            </div>
+            <div class="footer">
+                <div class="pull-right">
+                    <strong>Copyright</strong> Vanhack  &copy;.
+                </div>
+                <div>
+                    
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+</h:body>
+
+</html>

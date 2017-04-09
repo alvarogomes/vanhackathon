@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+	
+	<ui:composition template="../template/templateMain.xhtml">
+	   	<ui:define name="conteudo">
+	   	
+	   	
+	   	<h:form id="form">	   		
+	   	  <a4j:outputPanel id="pnlPrincipal">
+	   	  	
+	   		<!--  Codigo da tela -->
+			<div class="row">
+				
+				<div class="col-lg-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-content">
+						  <div class="content clearfix">
+							  	<div class="row">
+									<div class="fieldset">
+											
+											<div class="col-lg-12">
+												<div class="form-group">
+													<label>Job</label> 
+													<h:inputText id="nome" disabled="true" value="#{jobController.jobSelected.jobtype}" styleClass="form-control" />
+												</div>
+											</div>
+									</div>
+								</div>
+								
+							   <h3>Best professionals for this joboffer </h3>
+							   
+							   <!--  Grid -->
+							   <div class="row">
+							   		<a4j:outputPanel id="pnlConsulta">
+								   		<h:messages id="messages" showSummary="true" showDetail="true"/>
+								   		<br/>
+								   		<rich:dataTable id="dtPessoas"
+											value="#{jobController.jobSelected.listMatchs}" 
+											rows="10"
+											var="lista"
+											styleClass="table table-bordered">
+										
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Select" />
+												</f:facet>
+												<h:selectBooleanCheckbox value="#{jobController.hashAnalysisCV[lista.professional.code]}" >
+													<a4j:ajax event="change" listener="#{jobController.noAction}" />
+												</h:selectBooleanCheckbox>
+											</rich:column>
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="E-mail" />
+												</f:facet>
+												<h:outputText value="#{lista.professional.email}" />
+											</rich:column>	
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Name" />
+												</f:facet>
+												<h:outputText value="#{lista.professional.name}" />
+											</rich:column>	
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="Similarity" />
+												</f:facet>
+												<h:outputText value="#{lista.similarity} %" />
+											</rich:column>
+											
+											<rich:column>
+												<f:facet name="header">
+													<h:outputText value="" />
+												</f:facet>
+												
+												<a4j:commandLink action="#{jobController.detailProfessional}" styleClass="btn btn-white"
+															 render="OpConfirmacaoExclusaoModal" 
+															 oncomplete="$('#confirmacaoExclusaoModal').modal('show');">
+															 
+													<i class="fa fa-edit" /> Detail
+													<f:setPropertyActionListener value="#{lista}" target="#{jobController.matchSelected}" />
+												</a4j:commandLink>
+												
+											</rich:column>	
+											
+										</rich:dataTable>
+										
+										<div class="pull-right">
+											<rich:dataScroller  align="right" for="dtPessoas" maxPages="20" id="scroller" reRender="dtPessoas" eventsQueue="1" />
+										</div>
+									</a4j:outputPanel>
+							   </div>
+							   <br/>
+							   <div class="row">
+							   		<div class="pull-right">
+											<a4j:commandLink action="#{jobController.loadCVs}" styleClass="btn btn-success"
+															 render="OpEnviarEmail" 
+															 oncomplete="$('#confirmacaoEnviarEmail').modal('show');">
+															 
+													<i class="fa fa-edit" /> Send CV's to Company
+												</a4j:commandLink>
+									</div>
+							   </div>
+							   <!--  Fim Grid -->
+							   
+							   <!--  Modal -->
+							   
+							   <a4j:outputPanel id="OpEnviarEmail">
+							   			<div id="confirmacaoEnviarEmail" class="modal fade" tabindex="-1" role="dialog">	
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">	
+									          	<div class="modal-body" style="text-align: left;">
+									          			<h:messages id="messages2" showSummary="true" showDetail="true"/>
+									          			<div class="row">
+															<div class="col-lg-8">
+																<div class="form-group">
+																	<label>E-mail of the company</label> 
+																	<h:inputText value="#{jobController.emailCompany}" styleClass="email form-control" />
+																</div>
+															</div>
+														</div>
+									          	</div>
+									          	
+									          	
+									         	<div class="modal-footer">
+										          		<a4j:commandLink action="#{jobController.sendCVsToCompany}" render="messages2" styleClass="btn btn-success">
+															<i class="fa fa-check" /> Send E-mail
+														</a4j:commandLink>
+										          		<a4j:commandLink onclick="$('#confirmacaoEnviarEmail').modal('hide');" styleClass="btn btn-white">
+															<i class="fa fa-remove" /> Close
+														</a4j:commandLink>
+												</div>
+									         </div>
+									         
+									     </div>
+									    </div>
+							   </a4j:outputPanel>
+							   
+							   	<a4j:outputPanel id="OpConfirmacaoExclusaoModal">
+							   		<div id="confirmacaoExclusaoModal" class="modal fade" tabindex="-1" role="dialog">	
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">	
+									          	<div class="modal-body" style="text-align: left;">
+												  	<div class="row">
+														<div class="col-lg-5">
+															<div class="form-group">
+																<label>E-mail</label> 
+																<h:inputText disabled="true"  value="#{jobController.matchSelected.professional.email}" styleClass="form-control" />
+															</div>
+														</div>
+														<div class="col-lg-6">
+															<div class="form-group">
+																<label>Name</label> 
+																<h:inputText disabled="true"  value="#{jobController.matchSelected.professional.name}" styleClass="form-control" />
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-6">
+															<div class="form-group">
+																<label>Similarity</label> 
+																<h:inputText disabled="true" value="#{jobController.matchSelected.similarity} %" styleClass="form-control" />
+															</div>
+														</div>
+													</div>
+													
+													<div class="row">
+														<div class="col-lg-12">
+															<h2>List of skills (Job x Professional)</h2>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-lg-12">
+															<rich:dataTable id="dtSkills" value="#{jobController.jobSelected.list}" 
+																rows="4"
+																var="lista"
+																styleClass="table table-bordered">
+												
+																<rich:column>
+																	<f:facet name="header">
+																		<h:outputText value="Skill" />
+																	</f:facet>
+																	<h:outputText value="#{lista.description}" />
+																</rich:column>	
+																
+																<rich:column>
+																	<f:facet name="header">
+																		<h:outputText value="Level Job" />
+																	</f:facet>
+																	
+																	<div class="progress progress-striped active">
+										                                <div style="width: #{lista.level * 10}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-danger">
+										                                    <span class="sr-only">#{lista.level}% Complete (success)</span>
+										                                </div>
+										                            </div>
+																</rich:column>	
+															
+																<rich:column>
+																	<f:facet name="header">
+																		<h:outputText value="Level Professional" />
+																	</f:facet>
+																	
+																	<div class="progress progress-striped active">
+										                                <div style="width: #{jobController.hashSimilarityProfessional[lista.code] * 10}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="75" role="progressbar" class="progress-bar progress-bar-success">
+										                                    <span class="sr-only">#{lista.level}% Complete (success)</span>
+										                                </div>
+										                            </div>
+																</rich:column>
+																
+															</rich:dataTable>
+															<div class="pull-right">
+																<rich:dataScroller align="right" for="dtSkills" maxPages="10" id="scroller2" reRender="dtSkills" eventsQueue="1" />
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="modal-footer">
+														
+														
+										          		<a4j:commandLink onclick="$('#confirmacaoExclusaoModal').modal('hide');" styleClass="btn btn-white">
+															<i class="fa fa-remove" /> Close
+														</a4j:commandLink>
+												</div>
+											</div>
+										</div>
+									</div>
+								</a4j:outputPanel>
+							   <!--  Fim Modal -->
+							   
+						   </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		
+		  </a4j:outputPanel>	
+		</h:form>	
+		
+	   		<!--  FIM - Codigo da tela -->
+	   	</ui:define>
+	</ui:composition>
+	
+</html>
+	

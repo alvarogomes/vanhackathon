@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<public>
+	<page>/views/login/login.jsf</page>
+	<page>/views/useful/error.jsf</page>
+	<page>/views/useful/sessionExpired.jsf</page>
+	<page>/views/useful/userNotLogged.jsf</page>
+	<page>/javax.faces.resource/jsf.js.jsf</page>
+	<page>/javax.faces.resource/theme.css.jsf</page>
+</public>
